@@ -33,8 +33,6 @@ var Cliente = new Schema({
     egresos : { type: Schema.ObjectId, ref: "Egresos" },
     ingresos : { type: Schema.ObjectId, ref: "Ingresos" },
     firma:String
-
-    //cargoPolitico: Array<CargoPolitico> 
 });
 
 module.exports = mongoose.model('Cliente', Cliente);

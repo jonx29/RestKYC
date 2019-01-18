@@ -1,14 +1,12 @@
-const path = require('path');
+//const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const app = express();
 
-//conexion a base de datos
-mongoose.connect('mongodb://localhost/kyc')
-.then(db=> console.log('Conectado a MongoDB'))
-.catch(err => console.log(err));
-
+//coneccion a MongoDB
+var mongoose = require('./connection');
 
 //configuraciones
 app.set('port', process.env.PORT || 3000);
@@ -17,9 +15,15 @@ app.set('models', path.join(__dirname, 'models'));
 //middlewares
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
-//rutas
 
 //conexion al servidor
 app.listen(app.get('port'), () => {
     console.log(`Servidor en el puerto ${app.get('port')}`);
 });
+
+//servicios - rutas
+var clienteService = require('./services/clienteService');
+
+//POST
+app.use(bodyParser.json());
+app.use('./services/clienteService', clienteService);

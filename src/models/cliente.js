@@ -13,10 +13,17 @@ var Cliente = new Schema({
     provincia: String,
     ciudad: String,
     direccion: String,
+
     //Estado Civil
+    estadoCivil:String,
+
     //Genero
-    identificacion: String,
+    genero:String,
+
     //tipo identificacion
+    tipoIdentificacion:String,
+
+    identificacion: String,
     telefono: [{
         tipoTelefono: String,
         numero: Number
@@ -28,16 +35,20 @@ var Cliente = new Schema({
     profesion: String,
     referencia: [{
         nombre: String,
-        telefono: String
+        telefono: String,
+        tipoReferencia: String
     }],
     actividadEconomica: String,
+
     //personeria
+    personeria:String,
+    
     cargoPolitico: [{ descripcion: String }],
-    egresos: [{
+    egreso: [{
         valor: Number,
         descripcion: String
     }],
-    ingresos: [{
+    ingreso: [{
         valor: Number,
         descripcion: String
     }],

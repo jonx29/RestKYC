@@ -46,7 +46,7 @@ exports.findOne = (req, res) => {
             });
         }
         return res.status(500).send({
-            message: "Error al encontrar a cliente con cedula " + req.params.identificacion + " " + err 
+            message: "Error al encontrar a cliente con cedula " + req.params.identificacion + " " + err
         });
     })
 };
@@ -100,7 +100,7 @@ exports.update = (req, res) => {
                 });
             }
             return res.status(500).send({
-                message: "Error al modificar al cliente con cedula " + req.params.cedula + " " + err 
+                message: "Error al modificar al cliente con cedula " + req.params.cedula + " " + err
             });
         })
 };
@@ -121,7 +121,87 @@ exports.delete = (req, res) => {
             });
         }
         return res.status(500).send({
-            message: "Error al eliminar al cliente con cedula " + req.params.cedula + " " + err 
+            message: "Error al eliminar al cliente con cedula " + req.params.cedula + " " + err
+        });
+    })
+};
+
+
+//SERVICIOS PEDIDOS POR LOS GRUPOS
+//solo devolver código, nombres, apellidos, cedula y correo electrónico (clientes/identificacion)
+exports.findOneCli = (req, res) => {
+    if (!req.body) {
+        return res.status(400).send({
+            message: "los datos del cliente estan vacios"
+        });
+    }
+    Cliente.findOne({ 'identificacion': req.params.identificacion },['codigo','nombres','apellidos','identificacion','correoElectronico']).then(cliente => {
+        if (!cliente) {
+            return res.status(404).send({
+                message: "Cliente con cedula " + req.params.identificacion + " no existe"
+            });
+        }
+        res.send(cliente);
+    }).catch(err => {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Cliente con cedula " + req.params.identificacion + " no existe"
+            });
+        }
+        return res.status(500).send({
+            message: "Error al encontrar al cliente con cedula " + req.params.identificacion + " " + err
+        });
+    })
+};
+
+//solo devolver código, nombres, apellidos y cedula (prestamo/identificacion)
+exports.findOnePres = (req, res) => {
+    if (!req.body) {
+        return res.status(400).send({
+            message: "los datos del cliente estan vacios"
+        });
+    }
+    Cliente.findOne({ 'identificacion': req.params.identificacion },['codigo','nombres','apellidos','identificacion']).then(cliente => {
+        if (!cliente) {
+            return res.status(404).send({
+                message: "Cliente con cedula " + req.params.identificacion + " no existe"
+            });
+        }
+        res.send(cliente);
+    }).catch(err => {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Cliente con cedula " + req.params.identificacion + " no existe"
+            });
+        }
+        return res.status(500).send({
+            message: "Error al encontrar al cliente con cedula " + req.params.identificacion + " " + err
+        });
+    })
+};
+
+//solo devolver código, nombres, apellidos y firma (firma/identificacion)
+exports.findOneFir = (req, res) => {
+    if (!req.body) {
+        return res.status(400).send({
+            message: "los datos del cliente estan vacios"
+        });
+    }
+    Cliente.findOne({ 'identificacion': req.params.identificacion },['codigo','nombres','apellidos','firma']).then(cliente => {
+        if (!cliente) {
+            return res.status(404).send({
+                message: "Cliente con cedula " + req.params.identificacion + " no existe"
+            });
+        }
+        res.send(cliente);
+    }).catch(err => {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Cliente con cedula " + req.params.identificacion + " no existe"
+            });
+        }
+        return res.status(500).send({
+            message: "Error al encontrar al cliente con cedula " + req.params.identificacion + " " + err
         });
     })
 };

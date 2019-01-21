@@ -1,10 +1,4 @@
 const mongoose = require('mongoose');
-var Referencia = mongoose.model('referencia');
-var Ingresos = mongoose.model('ingreso');
-var Egresos = mongoose.model('egreso');
-var CargoPolitico = mongoose.model('cargoPolitico');
-var Telefono = mongoose.model('teledono');
-var Vinculacion = mongoose.model('vinculacion');
 const Schema = mongoose.Schema;
 
 var Cliente = new Schema({
@@ -21,18 +15,33 @@ var Cliente = new Schema({
     direccion: String,
     //Estado Civil
     //Genero
-    identificacion:String,
+    identificacion: String,
     //tipo identificacion
-    telefono : { type: Schema.ObjectId, ref: "Telefono" },
-    vinculacion : { type: Schema.ObjectId, ref: "Vinculacion" },    
+    telefono: [{
+        tipoTelefono: String,
+        numero: Number
+    }],
+    vinculacion: [{
+        nombre: String,
+        cargo: String
+    }],
     profesion: String,
-    referencia : { type: Schema.ObjectId, ref: "Referencia" },
+    referencia: [{
+        nombre: String,
+        telefono: String
+    }],
     actividadEconomica: String,
     //personeria
-    cargoPolitico : { type: Schema.ObjectId, ref: "CargoPolitico" },
-    egresos : { type: Schema.ObjectId, ref: "Egresos" },
-    ingresos : { type: Schema.ObjectId, ref: "Ingresos" },
-    firma:String
+    cargoPolitico: [{ descripcion: String }],
+    egresos: [{
+        valor: Number,
+        descripcion: String
+    }],
+    ingresos: [{
+        valor: Number,
+        descripcion: String
+    }],
+    firma: String
 });
 
 module.exports = mongoose.model('Cliente', Cliente);

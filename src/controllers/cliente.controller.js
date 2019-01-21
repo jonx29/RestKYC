@@ -71,16 +71,16 @@ exports.update = (req, res) => {
             'provincia': req.body.provincia,
             'ciudad': req.body.ciudad,
             'direccion': req.body.direccion,
-            //Estado Civil
-            //Genero
+            'estadoCivil':req.body.estadoCivil,
+            'genero':req.body.genero,
             'identificacion': req.body.identificacion,
-            //tipo identificacion
+            'tipoIdentificacion':req.body.tipoIdentificacion,
             'telefono': req.body.telefono,
             'vinculacion': req.body.vinculacion,
             'profesion': req.body.profesion,
             'referencia': req.body.referencia,
             'actividadEconomica': req.body.actividadEconomica,
-            //personeria
+            'personeria':req.body.personeria,
             'cargoPolitico': req.body.cargoPolitico,
             'egresos': req.body.egresos,
             'ingresos': req.body.ingresos,

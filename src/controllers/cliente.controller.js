@@ -1,6 +1,5 @@
 const express = require('express');
 const Cliente = require('../models/cliente.js');
-const CargoPolitico = require('../models/cargoPolitico.js');
 
 
 // Creacion de un Cliente
@@ -10,7 +9,51 @@ exports.create = (req, res) => {
             message: "los datos del cliente estan vacios"
         });
     }
-    var cliente = new Cliente(req.body);
+    var cliente = new Cliente({
+        'codigo': Math.floor((Math.random() * 1000) + 1),
+        'nombres': req.body.nombres,
+        'apellidos': req.body.apellidos,
+        'fechaNacimiento': req.body.fechaNacimiento,
+        'fechaHoraRegistro': req.body.fechaHoraRegistro,
+        'correoElectronico': req.body.correoElectronico,
+        'nacionalidad': req.body.nacionalidad,
+        'pais': req.body.pais,
+        'provincia': req.body.provincia,
+        'ciudad': req.body.ciudad,
+        'paisResidencia': req.body.paisResidencia,
+        'provinciaResidencia': req.body.provinciaResidencia,
+        'calleResidencia': req.body.calleResidencia,
+        'callePrincipal': req.body.callePrincipal,
+        'numCasa': req.body.numCasa,
+        'calleSecundaria': req.body.calleSecundaria,
+        'referenciaResidencia': req.body.referenciaResidencia,
+        'numeroCel': req.body.numeroCel,
+        'numeroCasa': req.body.numeroCasa,
+        'estadoCivil': req.body.estadoCivil,
+        'genero': req.body.genero,
+        'tipoIdentificacion': req.body.tipoIdentificacion,
+        'identificacion': req.body.identificacion,
+        'parentescoEmpleados': req.body.parentescoEmpleados,
+        'nombreEmpleados': req.body.nombreEmpleados,
+        'apellidoEmpleados': req.body.apellidoEmpleados,
+        'paisEmpleado': req.body.paisEmpleado,
+        'fechaNacimientoEmpleado': req.body.fechaNacimientoEmpleado,
+        'profesion': req.body.profesion,
+        'cedulaReferncia': req.body.cedulaReferncia,
+        'apellidoReferencia': req.body.apellidoReferencia,
+        'generoReferencia': req.body.generoReferencia,
+        'paisNacimientoReferencia': req.body.paisNacimientoReferencia,
+        'estadoCivilReferencia': req.body.estadoCivilReferencia,
+        'nombreReferencia': req.body.nombreReferencia,
+        'tipoReferencia': req.body.tipoReferencia,
+        'personeria': req.body.personeria,
+        'cargoPolitico': req.body.cargoPolitico,
+        'fechaInicio': req.body.fechaInicio,
+        'fechaFin': req.body.fechaFin,
+        'egreso': req.body.egreso,
+        'ingreso': req.body.ingreso,
+        'firma': req.body.firma
+    });
     cliente.save()
         .then(cliente => {
             res.send(cliente);
@@ -24,9 +67,7 @@ exports.create = (req, res) => {
 // Muestra de todos los clientes
 exports.findAll = (req, res) => {
     Cliente.find({}, function (err, cliente) {
-        CargoPolitico.populate(cliente, { path: "cargoPolitico" }, function (err, cliente) {
             res.status(200).send(cliente);
-        });
     });
 };
 
@@ -58,34 +99,7 @@ exports.update = (req, res) => {
             message: "los datos del cliente estan vacios"
         });
     }
-    Cliente.findOneAndUpdate({ 'identificacion': req.params.identificacion },
-        {
-            'codigo': req.body.codigo,
-            'nombres': req.body.nombres,
-            'apellidos': req.body.apellidos,
-            'fechaNacimiento': req.body.fechaNacimiento,
-            'fechaHoraRegistro': req.body.fechaHoraRegistro,
-            'correoElectronico': req.body.correoElectronico,
-            'nacionalidad': req.body.nacionalidad,
-            'pais': req.body.pais,
-            'provincia': req.body.provincia,
-            'ciudad': req.body.ciudad,
-            'direccion': req.body.direccion,
-            'estadoCivil':req.body.estadoCivil,
-            'genero':req.body.genero,
-            'identificacion': req.body.identificacion,
-            'tipoIdentificacion':req.body.tipoIdentificacion,
-            'telefono': req.body.telefono,
-            'vinculacion': req.body.vinculacion,
-            'profesion': req.body.profesion,
-            'referencia': req.body.referencia,
-            'actividadEconomica': req.body.actividadEconomica,
-            'personeria':req.body.personeria,
-            'cargoPolitico': req.body.cargoPolitico,
-            'egresos': req.body.egresos,
-            'ingresos': req.body.ingresos,
-            'firma': req.body.firma
-        })
+    Cliente.findOneAndUpdate({ 'identificacion': req.params.identificacion },req.body)
         .then(cliente => {
             if (!cliente) {
                 return res.status(404).send({
@@ -135,7 +149,7 @@ exports.findOneCli = (req, res) => {
             message: "los datos del cliente estan vacios"
         });
     }
-    Cliente.findOne({ 'identificacion': req.params.identificacion },['codigo','nombres','apellidos','identificacion','correoElectronico']).then(cliente => {
+    Cliente.findOne({ 'identificacion': req.params.identificacion }, ['codigo', 'nombres', 'apellidos', 'identificacion', 'correoElectronico']).then(cliente => {
         if (!cliente) {
             return res.status(404).send({
                 message: "Cliente con cedula " + req.params.identificacion + " no existe"
@@ -161,7 +175,7 @@ exports.findOnePres = (req, res) => {
             message: "los datos del cliente estan vacios"
         });
     }
-    Cliente.findOne({ 'identificacion': req.params.identificacion },['codigo','nombres','apellidos','identificacion']).then(cliente => {
+    Cliente.findOne({ 'identificacion': req.params.identificacion }, ['codigo', 'nombres', 'apellidos', 'identificacion']).then(cliente => {
         if (!cliente) {
             return res.status(404).send({
                 message: "Cliente con cedula " + req.params.identificacion + " no existe"
@@ -187,7 +201,7 @@ exports.findOneFir = (req, res) => {
             message: "los datos del cliente estan vacios"
         });
     }
-    Cliente.findOne({ 'identificacion': req.params.identificacion },['codigo','nombres','apellidos','firma']).then(cliente => {
+    Cliente.findOne({ 'identificacion': req.params.identificacion }, ['codigo', 'nombres', 'apellidos', 'firma']).then(cliente => {
         if (!cliente) {
             return res.status(404).send({
                 message: "Cliente con cedula " + req.params.identificacion + " no existe"

@@ -19,7 +19,7 @@ var Cliente = new Schema({
     callePrincipal: String,
     numCasa: Number,
     calleSecundaria: String,
-    ReferenciaResidencia: String,
+    referenciaResidencia: String,
 
     numeroCel :Number,
     numeroCasa: Number,

@@ -38,10 +38,17 @@ var Cliente = new Schema({
         tipoTelefono: String,
         numero: Number
     }], */
-    vinculacion: [{
+/*     vinculacion: [{
         nombre: String,
         cargo: String
-    }],
+    }], */
+
+    parentescoEmpleados: String,
+    nombreEmpleados: String,
+    apellidoEmpleados: String,
+    paisEmpleado: String,
+    fechaNacimientoEmpleado: String,
+
     profesion: String,
     //referencia: [{
     cedulaReferncia: String,

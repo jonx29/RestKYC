@@ -12,46 +12,59 @@ var Cliente = new Schema({
     pais: String,
     provincia: String,
     ciudad: String,
-    direccion: String,
+
+    paisResidencia: String,
+    provinciaResidencia: String,
+    calleResidencia: String,
+    callePrincipal: String,
+    numCasa: Number,
+    calleSecundaria: String,
+    ReferenciaResidencia: String,
+
+    numeroCel :Number,
+    numeroCasa: Number,
 
     //Estado Civil
-    estadoCivil:String,
+    estadoCivil: String,
 
     //Genero
-    genero:String,
+    genero: String,
 
     //tipo identificacion
-    tipoIdentificacion:String,
-
+    tipoIdentificacion: String,
     identificacion: String,
-    telefono: [{
+
+    /* telefono: [{
         tipoTelefono: String,
         numero: Number
-    }],
+    }], */
     vinculacion: [{
         nombre: String,
         cargo: String
     }],
     profesion: String,
-    referencia: [{
-        nombre: String,
-        telefono: String,
-        tipoReferencia: String
-    }],
-    actividadEconomica: String,
+    //referencia: [{
+    cedulaReferncia: String,
+    apellidoReferencia: String,
+    generoReferencia: String,
+    paisNacimientoReferencia: String,
+    estadoCivilReferencia: String,
+    nombreReferencia: String,
+    //  telefono: String,
+    tipoReferencia: String,
+    //}],
+
+    //actividadEconomica: String,
 
     //personeria
-    personeria:String,
-    
-    cargoPolitico: [{ descripcion: String }],
-    egreso: [{
-        valor: Number,
-        descripcion: String
-    }],
-    ingreso: [{
-        valor: Number,
-        descripcion: String
-    }],
+    personeria: String,
+
+    cargoPolitico: String,
+    fechaInicio: Date,
+    fechaFin:Date,
+
+    egreso:Number,
+    ingreso:  Number,
     firma: String
 });
 

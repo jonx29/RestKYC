@@ -18,7 +18,7 @@ module.exports = (app) => {
 
   //SERVICIOS PEDIDOS POR LOS GRUPOS
   //solo devolver código, nombres, apellidos, cedula y correo electrónico (clientes/identificacion)
-  app.get('/clientes/:identificacion', cliente.findOneCli);
+  app.get('/cliente/cedula/:identificacion', cliente.findOneCli);
 
   //solo devolver código, nombres, apellidos y cedula (prestamo/identificacion)
   app.get('/cliente/prestamo/:identificacion', cliente.findOnePres);

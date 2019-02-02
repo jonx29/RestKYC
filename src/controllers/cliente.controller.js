@@ -67,7 +67,7 @@ exports.create = (req, res) => {
 // Muestra de todos los clientes
 exports.findAll = (req, res) => {
     Cliente.find({}, function (err, cliente) {
-            res.status(200).send(cliente);
+        res.status(200).send(cliente);
     });
 };
 
@@ -99,7 +99,7 @@ exports.update = (req, res) => {
             message: "los datos del cliente estan vacios"
         });
     }
-    Cliente.findOneAndUpdate({ 'identificacion': req.params.identificacion },req.body)
+    Cliente.findOneAndUpdate({ 'identificacion': req.params.identificacion }, req.body)
         .then(cliente => {
             if (!cliente) {
                 return res.status(404).send({
@@ -121,13 +121,16 @@ exports.update = (req, res) => {
 
 // Eliminacion del cliente
 exports.delete = (req, res) => {
-    Cliente.deleteOne({ 'identificacion': req.params.identificacion }).then(cliente => {
-        if (!cliente) {
+    Cliente.deleteOne({ 'identificacion': req.params.identificacion }).then(clienteBorrado => {
+        if (!clienteBorrado) {
             return res.status(404).send({
                 message: "Cliente con cedula " + req.params.cedula + " no existe"
             });
         }
-        res.send("Cliente eliminado correctamente");
+        res.status(200).json({
+            ok: true,
+            cliente: clienteBorrado
+        });
     }).catch(err => {
         if (err.kind === 'ObjectId') {
             return res.status(404).send({

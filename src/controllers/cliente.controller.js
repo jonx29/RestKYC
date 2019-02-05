@@ -1,6 +1,6 @@
 const express = require('express');
 const Cliente = require('../models/cliente.js');
-
+var client = require('soap');
 
 // Creacion de un Cliente
 exports.create = (req, res) => {
@@ -54,15 +54,29 @@ exports.create = (req, res) => {
         'ingreso': req.body.ingreso,
         'firma': req.body.firma
     });
-    cliente.save()
-        .then(cliente => {
-            res.send(cliente);
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Error al ingresar Cliente nuevo."
-            });
-        });
-};
+    client.createClient("http://168.62.165.137:8090/aw_registro_civil-1/WS_ObtenerPersona?WSDL",(err, clienteSoap)=>{
+        clienteSoap.obtenerPersona({
+            cedulaIdentidad: req.body.identificacion
+        }, (err, response) => {
+            if (err) {
+                res.status(500).send({
+                    message: err.message || "Error al ingresar Cliente nuevo. No existe"
+                });
+            } else {
+                cliente.save()
+                    .then(cliente => {
+                        res.send(cliente);
+                    }).catch(err => {
+                        res.status(500).send({
+                            message: err.message || "Error al ingresar Cliente nuevo."
+                        });
+                    });
+            }
+        })
+    })
+    
+    
+}
 
 // Muestra de todos los clientes
 exports.findAll = (req, res) => {

@@ -145,11 +145,11 @@ exports.delete = (req, res) => {
 
 
 // Eliminacion del cliente con id
-exports.delete = (req, res) => {
-    Cliente.deleteOne({ '_id': req.params._id }).then(clienteBorrado => {
+exports.deleteCodigo = (req, res) => {
+    Cliente.deleteOne({ 'codigo': req.params.codigo }).then(clienteBorrado => {
         if (!clienteBorrado) {
             return res.status(404).send({
-                message: "Cliente con id " + req.params._id + " no existe"
+                message: "Cliente con codigo " + req.params.codigo + " no existe"
             });
         }
         res.status(200).json({
@@ -159,11 +159,11 @@ exports.delete = (req, res) => {
     }).catch(err => {
         if (err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Cliente con id " + req.params._id + " no existe"
+                message: "Cliente con codigo " + req.params.codigo + " no existe"
             });
         }
         return res.status(500).send({
-            message: "Error al eliminar al cliente con id " + req.params._id + " " + err
+            message: "Error al eliminar al cliente con codigo " + req.params.codigo + " " + err
         });
     })
 };

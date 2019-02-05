@@ -17,7 +17,7 @@ module.exports = (app) => {
   app.delete('/cliente/:identificacion', cliente.delete);
   
   // Eliminacion del cliente con id
-  app.delete('/cliente/:_id', cliente.deleteId);
+  app.delete('/cliente/eliminar/:codigo', cliente.deleteCodigo);
 
   
 

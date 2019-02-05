@@ -15,6 +15,11 @@ module.exports = (app) => {
 
   // Eliminacion del cliente
   app.delete('/cliente/:identificacion', cliente.delete);
+  
+  // Eliminacion del cliente con id
+  app.delete('/cliente/:_id', cliente.deleteId);
+
+  
 
   //SERVICIOS PEDIDOS POR LOS GRUPOS
   //solo devolver código, nombres, apellidos, cedula y correo electrónico (clientes/identificacion)

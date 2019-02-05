@@ -100,13 +100,16 @@ exports.update = (req, res) => {
         });
     }
     Cliente.findOneAndUpdate({ 'identificacion': req.params.identificacion }, req.body)
-        .then(cliente => {
-            if (!cliente) {
+        .then(clienteActualizado => {
+            if (!clienteActualizado) {
                 return res.status(404).send({
                     message: "Cliente con cedula " + req.params.cedula + " no existe"
                 });
             }
-            res.send("Cliente modificado correctamente");
+            res.status(200).json({
+                ok: true,
+                cliente: clienteActualizado
+            });
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
